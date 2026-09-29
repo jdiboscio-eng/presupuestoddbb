@@ -39,24 +39,34 @@ section.first{border-top:0;padding-top:0}
 
 /* plan diagram */
 figure.plan{margin:0}
-.plan-box{overflow-x:auto;border:2px solid var(--ink)}
+.plan-box{border:2px solid var(--ink);background:var(--paper)}
 .plan svg{display:block;width:100%;height:auto}
-.plan svg.plan-m{display:none}
-.plan-m .r-h rect{fill:url(#hatch-m)}
-@media (max-width:600px){.plan svg.plan-d{display:none}.plan svg.plan-m{display:block}}
-.room rect{fill:var(--bg);stroke:var(--ink);stroke-width:1.5}
-.room text{fill:var(--ink);font-family:inherit;font-weight:400}
+.hint{color:var(--soft);font-size:.95rem;margin:0 0 12px}
+.room{cursor:pointer}
+.room rect{fill:var(--bg);stroke:var(--ink);stroke-width:1.5;transition:stroke-width .15s}
+@media (hover:hover){.room:hover rect{stroke-width:3.5}.chip:hover{background:var(--green-bg)}}
+.room text{fill:var(--ink);font-family:inherit;font-weight:400;pointer-events:none}
 .room text.m2{fill:var(--soft);font-weight:300}
+.room .lbl{animation:fadein .25s ease}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
 .r-d rect{fill:var(--green-bg)}
 .r-h rect{fill:url(#hatch)}
 .r-c rect{fill:var(--paper)}
 .r-m rect{fill:var(--paper)}
-.legend{display:flex;flex-wrap:wrap;gap:8px 24px;margin:14px 0 0;padding:0;list-style:none;color:var(--soft);font-size:.92rem}
-.legend li{display:flex;align-items:center;gap:8px}
-.sw{width:16px;height:16px;border:1.5px solid var(--ink);display:inline-block}
+.empty{fill:var(--soft);font-family:inherit;font-size:16px}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border:1.5px solid var(--ink);background:var(--bg);color:var(--ink);font:inherit;font-size:.92rem;cursor:pointer;transition:opacity .15s,background .15s}
+.chip em{font-style:normal;color:var(--soft);font-variant-numeric:tabular-nums}
+.chip[aria-pressed="false"]{opacity:.5;border-style:dashed}
+.chip[aria-pressed="false"] span{text-decoration:line-through}
+.chip[aria-pressed="false"] .sw{background:transparent}
+
+.sw{width:16px;height:16px;border:1.5px solid var(--ink);display:inline-block;flex:none}
 .sw.s{background:var(--bg)}.sw.d{background:var(--green-bg)}.sw.c{background:var(--paper)}
 .sw.h{background:repeating-linear-gradient(45deg,var(--bg) 0 3px,var(--hatch) 3px 4px)}
-figcaption{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:6px}
+.reset{align-self:flex-end;min-height:44px;padding:10px 18px;border:2px solid var(--ink);background:var(--ink);color:var(--bg);font:inherit;font-weight:500;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.room .lbl{animation:none}.chip,.room rect{transition:none}}
+figcaption{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-top:20px}
 .bigm2{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:400;line-height:1}
 .bigm2 small{font-size:1rem;color:var(--soft);font-weight:300;display:block;margin-top:6px}
 
@@ -134,7 +144,7 @@ ol.steps>li::before{content:counter(s);font-size:3rem;font-weight:300;line-heigh
 .btn{display:inline-block;padding:14px 26px;font-weight:500;text-decoration:none;border:2px solid var(--ink)}
 .btn.primary{background:var(--ink);color:var(--bg)}
 footer{border-top:1px solid var(--ink);padding:28px 0 48px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;color:var(--soft);font-size:.9rem}
-@media print{section{padding:40px 0;break-inside:avoid}.cta,.slider{display:none}}
+@media print{.hint,.reset{display:none}section{padding:40px 0;break-inside:avoid}.cta,.slider{display:none}}
 
 .mm{display:none}
 @media (max-width:600px){
@@ -161,110 +171,17 @@ summary:focus-visible{outline-offset:-6px}
   <h1>Casa Florencia<br>y Andrés</h1>
   <p class="lead">Propuesta de proyecto para su vivienda en el barrio Canales de Plottier.</p>
   <figure class="plan">
-    <div class="plan-box">
-    <svg class="plan-d" viewBox="0 0 1200 520" role="img" aria-labelledby="plan-t">
-      <title id="plan-t">Diagrama con la superficie de cada ambiente de la casa, en proporción a sus metros cuadrados</title>
-      <defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="var(--bg)"/><line x1="0" y1="0" x2="0" y2="8" stroke="var(--hatch)" stroke-width="1.5"/></pattern></defs>
-      <g class="room r-s"><rect x="0.0" y="0.0" width="270.4" height="282.1"/>
-<text x="10.0" y="22.0" font-size="15">Estar comedor</text><text class="m2" x="10.0" y="41.0" font-size="13">36 m²</text>
-</g>
-<g class="room r-c"><rect x="0.0" y="282.1" width="270.4" height="237.9"/>
-<text x="10.0" y="304.1" font-size="15">Circulaciones</text><text class="m2" x="10.0" y="323.1" font-size="13">30,35 m²</text>
-</g>
-<g class="room r-m"><rect x="270.4" y="0.0" width="215.3" height="298.6"/>
-<text x="280.4" y="22.0" font-size="15">Muros</text><text class="m2" x="280.4" y="41.0" font-size="13">30,35 m²</text>
-</g>
-<g class="room r-s"><rect x="270.4" y="298.6" width="215.3" height="221.4"/>
-<text x="280.4" y="320.6" font-size="15">Cocina</text><text class="m2" x="280.4" y="339.6" font-size="13">22,5 m²</text>
-</g>
-<g class="room r-h"><rect x="485.7" y="0.0" width="199.7" height="222.9"/>
-<text x="495.7" y="22.0" font-size="15">Cochera 2 autos</text><text class="m2" x="495.7" y="41.0" font-size="13">21 m²</text>
-</g>
-<g class="room r-d"><rect x="485.7" y="222.9" width="199.7" height="148.6"/>
-<text x="495.7" y="244.9" font-size="15">Dormitorio ppal.</text><text class="m2" x="495.7" y="263.9" font-size="13">14 m²</text>
-</g>
-<g class="room r-c"><rect x="485.7" y="371.4" width="199.7" height="148.6"/>
-<text x="495.7" y="393.4" font-size="15">Escalera</text><text class="m2" x="495.7" y="412.4" font-size="13">14 m²</text>
-</g>
-<g class="room r-d"><rect x="685.4" y="0.0" width="187.1" height="158.5"/>
-<text x="695.4" y="22.0" font-size="15">Dormitorio</text><text class="m2" x="695.4" y="41.0" font-size="13">14 m²</text>
-</g>
-<g class="room r-d"><rect x="872.5" y="0.0" width="163.7" height="158.5"/>
-<text x="882.5" y="22.0" font-size="15">Dormitorio</text><text class="m2" x="882.5" y="41.0" font-size="13">12,25 m²</text>
-</g>
-<g class="room r-d"><rect x="1036.3" y="0.0" width="163.7" height="158.5"/>
-<text x="1046.3" y="22.0" font-size="15">Dormitorio</text><text class="m2" x="1046.3" y="41.0" font-size="13">12,25 m²</text>
-</g>
-<g class="room r-s"><rect x="685.4" y="158.5" width="124.8" height="183.3"/>
-<text x="695.4" y="180.5" font-size="12">Estudio</text><text class="m2" x="695.4" y="196.5" font-size="10">10,8 m²</text>
-</g>
-<g class="room r-h"><rect x="685.4" y="341.8" width="124.8" height="178.2"/>
-<text x="695.4" y="363.8" font-size="12">Galería</text><text class="m2" x="695.4" y="379.8" font-size="10">10,5 m²</text>
-</g>
-<g class="room r-s"><rect x="810.2" y="158.5" width="149.5" height="127.6"/>
-<text x="820.2" y="180.5" font-size="12">Cocina servicio</text><text class="m2" x="820.2" y="196.5" font-size="10">9 m²</text>
-</g>
-<g class="room r-s"><rect x="810.2" y="286.1" width="149.5" height="127.6"/>
-<text x="820.2" y="308.1" font-size="12">Depósito</text><text class="m2" x="820.2" y="324.1" font-size="10">9 m²</text>
-</g>
-<g class="room r-d"><rect x="810.2" y="413.7" width="149.5" height="106.3"/>
-<text x="820.2" y="435.7" font-size="12">Vestidor</text><text class="m2" x="820.2" y="451.7" font-size="10">7,5 m²</text>
-</g>
-<g class="room r-d"><rect x="959.7" y="158.5" width="120.2" height="132.3"/>
-<text x="969.7" y="180.5" font-size="12">Vestidor</text><text class="m2" x="969.7" y="196.5" font-size="10">7,5 m²</text>
-</g>
-<g class="room r-d"><rect x="1079.8" y="158.5" width="120.2" height="132.3"/>
-<text x="1089.8" y="180.5" font-size="12">Baño</text><text class="m2" x="1089.8" y="196.5" font-size="10">7,5 m²</text>
-</g>
-<g class="room r-d"><rect x="959.7" y="290.8" width="138.6" height="114.6"/>
-<text x="969.7" y="312.8" font-size="12">Baño</text><text class="m2" x="969.7" y="328.8" font-size="10">7,5 m²</text>
-</g>
-<g class="room r-s"><rect x="959.7" y="405.4" width="138.6" height="114.6"/>
-<text x="969.7" y="427.4" font-size="12">Lavadero</text><text class="m2" x="969.7" y="443.4" font-size="10">7,5 m²</text>
-</g>
-<g class="room r-d"><rect x="1098.3" y="290.8" width="101.7" height="125.0"/>
-<text x="1108.3" y="312.8" font-size="12">Baño</text><text class="m2" x="1108.3" y="328.8" font-size="10">6 m²</text>
-</g>
-<g class="room r-s"><rect x="1098.3" y="415.8" width="101.7" height="62.5"/>
-<text x="1108.3" y="437.8" font-size="12">Hall</text><text class="m2" x="1108.3" y="453.8" font-size="10">3 m²</text>
-</g>
-<g class="room r-s"><rect x="1098.3" y="478.3" width="101.7" height="41.7"/>
-<text x="1108.3" y="500.3" font-size="12">Toilette</text><text class="m2" x="1108.3" y="516.3" font-size="10">2 m²</text>
-</g>
-    </svg>
-    <svg class="plan-m" viewBox="0 0 400 820" role="img" aria-labelledby="plan-tm"><title id="plan-tm">Diagrama con la superficie de cada ambiente de la casa, en proporción a sus metros cuadrados</title><defs><pattern id="hatch-m" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="var(--bg)"/><line x1="0" y1="0" x2="0" y2="8" stroke="var(--hatch)" stroke-width="1.5"/></pattern></defs>
-<g class="room r-s"><rect x="0.0" y="0.0" width="217.0" height="184.7"/><text x="7.0" y="21.0" font-size="15">Estar comedor</text><text class="m2" x="7.0" y="40.0" font-size="12.8">36 m²</text></g>
-<g class="room r-c"><rect x="217.0" y="0.0" width="183.0" height="184.7"/><text x="224.0" y="21.0" font-size="15">Circulaciones</text><text class="m2" x="224.0" y="40.0" font-size="12.8">30,35 m²</text></g>
-<g class="room r-m"><rect x="0.0" y="184.7" width="229.7" height="147.2"/><text x="7.0" y="205.7" font-size="15">Muros</text><text class="m2" x="7.0" y="224.7" font-size="12.8">30,35 m²</text></g>
-<g class="room r-s"><rect x="229.7" y="184.7" width="170.3" height="147.2"/><text x="236.7" y="205.7" font-size="15">Cocina</text><text class="m2" x="236.7" y="224.7" font-size="12.8">22,5 m²</text></g>
-<g class="room r-h"><rect x="0.0" y="331.9" width="171.4" height="136.4"/><text x="7.0" y="352.9" font-size="15">Cochera 2 autos</text><text class="m2" x="7.0" y="371.9" font-size="12.8">21 m²</text></g>
-<g class="room r-d"><rect x="171.4" y="331.9" width="114.3" height="136.4"/><text x="178.4" y="348.6" font-size="10.7">Dormitorio ppal.</text><text class="m2" x="178.4" y="363.3" font-size="9.1">14 m²</text></g>
-<g class="room r-c"><rect x="285.7" y="331.9" width="114.3" height="136.4"/><text x="292.7" y="352.9" font-size="15">Escalera</text><text class="m2" x="292.7" y="371.9" font-size="12.8">14 m²</text></g>
-<g class="room r-d"><rect x="0.0" y="468.3" width="121.9" height="127.9"/><text x="7.0" y="489.3" font-size="15">Dormitorio</text><text class="m2" x="7.0" y="508.3" font-size="12.8">14 m²</text></g>
-<g class="room r-d"><rect x="0.0" y="596.2" width="121.9" height="111.9"/><text x="7.0" y="617.2" font-size="15">Dormitorio</text><text class="m2" x="7.0" y="636.2" font-size="12.8">12,25 m²</text></g>
-<g class="room r-d"><rect x="0.0" y="708.1" width="121.9" height="111.9"/><text x="7.0" y="729.1" font-size="15">Dormitorio</text><text class="m2" x="7.0" y="748.1" font-size="12.8">12,25 m²</text></g>
-<g class="room r-s"><rect x="121.9" y="468.3" width="99.1" height="121.4"/><text x="128.9" y="489.3" font-size="15">Estudio</text><text class="m2" x="128.9" y="508.3" font-size="12.8">10,8 m²</text></g>
-<g class="room r-h"><rect x="221.0" y="468.3" width="96.4" height="121.4"/><text x="228.0" y="489.3" font-size="15">Galería</text><text class="m2" x="228.0" y="508.3" font-size="12.8">10,5 m²</text></g>
-<g class="room r-s"><rect x="317.4" y="468.3" width="82.6" height="121.4"/><text x="324.4" y="484.1" font-size="9.8">Cocina serv.</text><text class="m2" x="324.4" y="497.9" font-size="8.3">9 m²</text></g>
-<g class="room r-s"><rect x="121.9" y="589.7" width="79.8" height="125.6"/><text x="128.9" y="609.8" font-size="14.1">Depósito</text><text class="m2" x="128.9" y="627.9" font-size="12.0">9 m²</text></g>
-<g class="room r-d"><rect x="121.9" y="715.3" width="79.8" height="104.7"/><text x="128.9" y="735.4" font-size="14.1">Vestidor</text><text class="m2" x="128.9" y="753.5" font-size="12.0">7,5 m²</text></g>
-<g class="room r-d"><rect x="201.7" y="589.7" width="99.1" height="84.3"/><text x="208.7" y="610.7" font-size="15">Vestidor</text><text class="m2" x="208.7" y="629.7" font-size="12.8">7,5 m²</text></g>
-<g class="room r-d"><rect x="300.9" y="589.7" width="99.1" height="84.3"/><text x="307.9" y="610.7" font-size="15">Baño</text><text class="m2" x="307.9" y="629.7" font-size="12.8">7,5 m²</text></g>
-<g class="room r-d"><rect x="201.7" y="674.0" width="114.4" height="73.0"/><text x="208.7" y="695.0" font-size="15">Baño</text><text class="m2" x="208.7" y="714.0" font-size="12.8">7,5 m²</text></g>
-<g class="room r-s"><rect x="201.7" y="747.0" width="114.4" height="73.0"/><text x="208.7" y="768.0" font-size="15">Lavadero</text><text class="m2" x="208.7" y="787.0" font-size="12.8">7,5 m²</text></g>
-<g class="room r-d"><rect x="316.1" y="674.0" width="83.9" height="79.7"/><text x="323.1" y="695.0" font-size="15">Baño</text><text class="m2" x="323.1" y="714.0" font-size="12.8">6 m²</text></g>
-<g class="room r-s"><rect x="316.1" y="753.6" width="50.3" height="66.4"/><text x="323.1" y="774.6" font-size="15">Hall</text><text class="m2" x="323.1" y="793.6" font-size="12.8">3 m²</text></g>
-<g class="room r-s"><rect x="366.4" y="753.6" width="33.6" height="66.4"/><text transform="translate(377.2,761.6) rotate(90)" font-size="11">Toilette</text><text class="m2" transform="translate(391.2,761.6) rotate(90)" font-size="9">2 m²</text></g>
-    </svg>
+    <p class="hint">Tocá un grupo para sacarlo o sumarlo, o tocá cualquier ambiente para quitarlo, y mirá cómo cambia la casa.</p>
+    <div class="plan-box" id="planbox"></div>
+    <div class="legend" role="group" aria-label="Mostrar u ocultar grupos de ambientes">
+      <button type="button" class="chip" data-g="s" aria-pressed="true"><i class="sw s"></i><span>Área social y servicio</span><em></em></button>
+      <button type="button" class="chip" data-g="d" aria-pressed="true"><i class="sw d"></i><span>Dormitorios</span><em></em></button>
+      <button type="button" class="chip" data-g="h" aria-pressed="true"><i class="sw h"></i><span>Semicubiertos (al 50%)</span><em></em></button>
+      <button type="button" class="chip" data-g="c" aria-pressed="true"><i class="sw c"></i><span>Circulación y muros</span><em></em></button>
     </div>
-    <ul class="legend">
-      <li><i class="sw s"></i>Área social y servicio</li>
-      <li><i class="sw d"></i>Dormitorios</li>
-      <li><i class="sw h"></i>Semicubiertos (al 50%)</li>
-      <li><i class="sw c"></i>Circulación y muros</li>
-    </ul>
     <figcaption>
-      <div class="bigm2">294,49 m²<small>superficie estimada de su casa, ambiente por ambiente</small></div>
+      <div class="bigm2" aria-live="polite"><span id="bigm2">294,49 m²</span><small id="bigsub">superficie estimada de su casa, ambiente por ambiente</small></div>
+      <button type="button" class="reset" id="reset" hidden>Ver la casa completa</button>
     </figcaption>
   </figure>
 </section>
@@ -435,6 +352,93 @@ summary:focus-visible{outline-offset:-6px}
   <span>ddbbarquitectos.com / Instagram @ddbbarquitectos</span>
 </footer>
 </div>
+<script>
+(function(){
+  var FULL=294.49, RATE=62000;
+  var R=[
+    ['estar','Estar comedor',36,'s','s'],['cocina','Cocina',22.5,'s','s'],['cochera','Cochera 2 autos',21,'h','h'],
+    ['dppal','Dormitorio ppal.',14,'d','d'],['escalera','Escalera',14,'c','c'],['dorm1','Dormitorio',14,'d','s'],
+    ['dorm2','Dormitorio',12.25,'d','d'],['dorm3','Dormitorio',12.25,'d','d'],['estudio','Estudio',10.8,'s','s'],
+    ['galeria','Galería',10.5,'h','h'],['cserv','Cocina serv.',9,'s','s'],['deposito','Depósito',9,'s','s'],
+    ['vest1','Vestidor',7.5,'d','s'],['vest2','Vestidor',7.5,'d','d'],['bano1','Baño',7.5,'d','s'],['bano2','Baño',7.5,'d','d'],
+    ['lav','Lavadero',7.5,'s','s'],['bano3','Baño',6,'d','d'],['hall','Hall',3,'s','s'],['toil','Toilette',2,'s','s']
+  ].map(function(r){return {id:r[0],n:r[1],a:r[2],cls:r[3],g:r[4]==='d'||r[3]==='d'?'d':r[3]==='h'?'h':r[3]==='c'?'c':'s'};});
+  var on={s:true,d:true,h:true,c:true}, removed={};
+  var box=document.getElementById('planbox'), prev={}, prevH=null, anim=null;
+  var mq=window.matchMedia('(max-width:600px)');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+  function fmt(n,d){return n.toLocaleString('es-AR',{minimumFractionDigits:0,maximumFractionDigits:2});}
+  function money(n){return '$'+Math.round(n).toLocaleString('es-AR');}
+  function active(r){return on[r.g]&&!removed[r.id];}
+  function compute(){
+    var items=R.filter(active).map(function(r){return {id:r.id,n:r.n,a:r.a,cls:r.cls};});
+    var net=0;items.forEach(function(r){if(r.cls!=='h')net+=r.a;});
+    if(on.c&&net>0){var k=net*0.15;
+      items.push({id:'circ',n:'Circulaciones',a:k,cls:'c'});items.push({id:'muros',n:'Muros',a:k,cls:'m'});}
+    items.sort(function(a,b){return b.a-a.a;});
+    var tot=0;items.forEach(function(r){tot+=r.a;});
+    return {items:items,tot:Math.round(tot*100)/100};
+  }
+  function worst(row,w,k){var s=0,mx=0,mn=Infinity;row.forEach(function(r){var v=r.a*k;s+=v;mx=Math.max(mx,v);mn=Math.min(mn,v);});
+    return Math.max(w*w*mx/(s*s),(s*s)/(w*w*mn));}
+  function squarify(items,x,y,w,h,k,out){
+    if(!items.length)return;
+    var short=Math.min(w,h),row=[items[0]],i=1;
+    while(i<items.length){var nr=row.concat([items[i]]);if(worst(nr,short,k)<=worst(row,short,k)){row=nr;i++;}else break;}
+    var s=0;row.forEach(function(r){s+=r.a*k;});
+    if(w<=h){var rh=s/w,cx=x;row.forEach(function(r){var rw=r.a*k/rh;out[r.id]={x:cx,y:y,w:rw,h:rh,r:r};cx+=rw;});squarify(items.slice(i),x,y+rh,w,h-rh,k,out);}
+    else{var rw2=s/h,cy=y;row.forEach(function(r){var rh2=r.a*k/rw2;out[r.id]={x:x,y:cy,w:rw2,h:rh2,r:r};cy+=rh2;});squarify(items.slice(i),x+rw2,y,w-rw2,h,k,out);}
+  }
+  function label(o){
+    var r=o.r,x=o.x,y=o.y,w=o.w,h=o.h,l=fmt(r.a)+' m²',fs=Math.min(15,(w-12)/(r.n.length*0.6),(h-8)/2.6);
+    if(fs<9){var cx=x+w/2;return '<g class="lbl"><text transform="translate('+(cx-6).toFixed(1)+','+(y+8).toFixed(1)+') rotate(90)" font-size="11">'+r.n+'</text><text class="m2" transform="translate('+(cx+8).toFixed(1)+','+(y+8).toFixed(1)+') rotate(90)" font-size="9">'+l+'</text></g>';}
+    var fs2=Math.min(13,fs*0.85);
+    return '<g class="lbl"><text x="'+(x+7).toFixed(1)+'" y="'+(y+6+fs).toFixed(1)+'" font-size="'+fs.toFixed(1)+'">'+r.n+'</text><text class="m2" x="'+(x+7).toFixed(1)+'" y="'+(y+10+2*fs).toFixed(1)+'" font-size="'+fs2.toFixed(1)+'">'+l+'</text></g>';
+  }
+  var DEFS='<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="var(--bg)"/><line x1="0" y1="0" x2="0" y2="8" stroke="var(--hatch)" stroke-width="1.5"/></pattern></defs>';
+  function draw(W,H,rects,withLabels){
+    var h=['<svg viewBox="0 0 '+W+' '+Math.max(H,1).toFixed(1)+'" role="img" aria-label="Diagrama interactivo con la superficie de cada ambiente, en proporción a sus metros cuadrados">'+DEFS];
+    if(H<2&&withLabels)h=['<svg viewBox="0 0 '+W+' 120" role="img" aria-label="Sin ambientes seleccionados">'+DEFS+'<text class="empty" x="20" y="66">No quedó ningún ambiente. Tocá un grupo para sumarlo.</text>'];
+    for(var id in rects){var o=rects[id];if(o.w<0.5||o.h<0.5)continue;
+      h.push('<g class="room r-'+o.r.cls+'" data-id="'+id+'"'+(withLabels?' tabindex="0" role="button" aria-label="Quitar '+o.r.n+', '+fmt(o.r.a)+' m²"':'')+'><rect x="'+o.x.toFixed(1)+'" y="'+o.y.toFixed(1)+'" width="'+o.w.toFixed(1)+'" height="'+o.h.toFixed(1)+'"/>'+(withLabels?label(o):'')+'</g>');}
+    h.push('</svg>');box.innerHTML=h.join('');
+  }
+  function render(instant){
+    var mob=mq.matches,W=mob?400:1200,H0=mob?820:520;
+    var c=compute(),H=H0*c.tot/FULL,k=W*H0/FULL,next={};
+    squarify(c.items,0,0,W,H,k,next);
+    document.getElementById('bigm2').textContent=fmt(c.tot)+' m²';
+    document.getElementById('bigsub').textContent=c.tot>=FULL-0.01?'superficie estimada de su casa, ambiente por ambiente':'de '+fmt(FULL)+' m² · honorarios estimados '+money(c.tot*RATE);
+    document.getElementById('reset').hidden=c.tot>=FULL-0.01;
+    var byG={s:0,d:0,h:0,c:0};R.forEach(function(r){if(!removed[r.id])byG[r.g]+=r.a;});
+    [].forEach.call(document.querySelectorAll('.chip'),function(b){var g=b.getAttribute('data-g');b.setAttribute('aria-pressed',on[g]?'true':'false');
+      b.querySelector('em').textContent=g==='c'?'':fmt(byG[g])+' m²';});
+    if(anim)cancelAnimationFrame(anim);
+    if(instant||reduce.matches||prevH===null){draw(W,H,next,true);prev=next;prevH=H;return;}
+    var from=prev,fromH=prevH,t0=null,D=420,all={};
+    Object.keys(from).forEach(function(id){all[id]=1;});Object.keys(next).forEach(function(id){all[id]=1;});
+    function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+    function frame(ts){if(t0===null)t0=ts;var p=Math.min(1,(ts-t0)/D),e=ease(p),cur={};
+      Object.keys(all).forEach(function(id){var a=from[id],b=next[id];
+        if(!a)a={x:b.x+b.w/2,y:b.y+b.h/2,w:0,h:0,r:b.r};if(!b)b={x:a.x+a.w/2,y:a.y+a.h/2,w:0,h:0,r:a.r};
+        cur[id]={x:a.x+(b.x-a.x)*e,y:a.y+(b.y-a.y)*e,w:a.w+(b.w-a.w)*e,h:a.h+(b.h-a.h)*e,r:b.r};});
+      if(p<1){draw(W,fromH+(H-fromH)*e,cur,false);anim=requestAnimationFrame(frame);}
+      else{draw(W,H,next,true);anim=null;}}
+    prev=next;prevH=H;anim=requestAnimationFrame(frame);
+  }
+  function hit(e){var g=e.target.closest&&e.target.closest('.room');if(!g)return;var id=g.getAttribute('data-id');
+    if(id==='circ'||id==='muros'){on.c=false;}else removed[id]=true;render();}
+  box.addEventListener('click',hit);
+  box.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();hit(e);var f=box.querySelector('.room[tabindex]');if(f)f.focus();}});
+  [].forEach.call(document.querySelectorAll('.chip'),function(b){b.addEventListener('click',function(){var g=b.getAttribute('data-g');
+    on[g]=!on[g];if(on[g])R.forEach(function(r){if(r.g===g)delete removed[r.id];});render();});});
+  document.getElementById('reset').addEventListener('click',function(){on={s:true,d:true,h:true,c:true};removed={};render();});
+  var onmq=function(){prevH=null;render(true);};
+  if(mq.addEventListener)mq.addEventListener('change',onmq);else mq.addListener(onmq);
+  render(true);
+})();
+
+</script>
 <script>
 (function(){
   var MIN=220,MAX=360,RATE=62000,m=294.49;
