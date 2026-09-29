@@ -40,7 +40,10 @@ section.first{border-top:0;padding-top:0}
 /* plan diagram */
 figure.plan{margin:0}
 .plan-box{overflow-x:auto;border:2px solid var(--ink)}
-.plan svg{display:block;width:100%;min-width:640px;height:auto}
+.plan svg{display:block;width:100%;height:auto}
+.plan svg.plan-m{display:none}
+.plan-m .r-h rect{fill:url(#hatch-m)}
+@media (max-width:600px){.plan svg.plan-d{display:none}.plan svg.plan-m{display:block}}
 .room rect{fill:var(--bg);stroke:var(--ink);stroke-width:1.5}
 .room text{fill:var(--ink);font-family:inherit;font-weight:400}
 .room text.m2{fill:var(--soft);font-weight:300}
@@ -159,7 +162,7 @@ summary:focus-visible{outline-offset:-6px}
   <p class="lead">Propuesta de proyecto para su vivienda en el barrio Canales de Plottier.</p>
   <figure class="plan">
     <div class="plan-box">
-    <svg viewBox="0 0 1200 520" role="img" aria-labelledby="plan-t">
+    <svg class="plan-d" viewBox="0 0 1200 520" role="img" aria-labelledby="plan-t">
       <title id="plan-t">Diagrama con la superficie de cada ambiente de la casa, en proporción a sus metros cuadrados</title>
       <defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="var(--bg)"/><line x1="0" y1="0" x2="0" y2="8" stroke="var(--hatch)" stroke-width="1.5"/></pattern></defs>
       <g class="room r-s"><rect x="0.0" y="0.0" width="270.4" height="282.1"/>
@@ -228,6 +231,30 @@ summary:focus-visible{outline-offset:-6px}
 <g class="room r-s"><rect x="1098.3" y="478.3" width="101.7" height="41.7"/>
 <text x="1108.3" y="500.3" font-size="12">Toilette</text><text class="m2" x="1108.3" y="516.3" font-size="10">2 m²</text>
 </g>
+    </svg>
+    <svg class="plan-m" viewBox="0 0 400 820" role="img" aria-labelledby="plan-tm"><title id="plan-tm">Diagrama con la superficie de cada ambiente de la casa, en proporción a sus metros cuadrados</title><defs><pattern id="hatch-m" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="var(--bg)"/><line x1="0" y1="0" x2="0" y2="8" stroke="var(--hatch)" stroke-width="1.5"/></pattern></defs>
+<g class="room r-s"><rect x="0.0" y="0.0" width="217.0" height="184.7"/><text x="7.0" y="21.0" font-size="15">Estar comedor</text><text class="m2" x="7.0" y="40.0" font-size="12.8">36 m²</text></g>
+<g class="room r-c"><rect x="217.0" y="0.0" width="183.0" height="184.7"/><text x="224.0" y="21.0" font-size="15">Circulaciones</text><text class="m2" x="224.0" y="40.0" font-size="12.8">30,35 m²</text></g>
+<g class="room r-m"><rect x="0.0" y="184.7" width="229.7" height="147.2"/><text x="7.0" y="205.7" font-size="15">Muros</text><text class="m2" x="7.0" y="224.7" font-size="12.8">30,35 m²</text></g>
+<g class="room r-s"><rect x="229.7" y="184.7" width="170.3" height="147.2"/><text x="236.7" y="205.7" font-size="15">Cocina</text><text class="m2" x="236.7" y="224.7" font-size="12.8">22,5 m²</text></g>
+<g class="room r-h"><rect x="0.0" y="331.9" width="171.4" height="136.4"/><text x="7.0" y="352.9" font-size="15">Cochera 2 autos</text><text class="m2" x="7.0" y="371.9" font-size="12.8">21 m²</text></g>
+<g class="room r-d"><rect x="171.4" y="331.9" width="114.3" height="136.4"/><text x="178.4" y="348.6" font-size="10.7">Dormitorio ppal.</text><text class="m2" x="178.4" y="363.3" font-size="9.1">14 m²</text></g>
+<g class="room r-c"><rect x="285.7" y="331.9" width="114.3" height="136.4"/><text x="292.7" y="352.9" font-size="15">Escalera</text><text class="m2" x="292.7" y="371.9" font-size="12.8">14 m²</text></g>
+<g class="room r-d"><rect x="0.0" y="468.3" width="121.9" height="127.9"/><text x="7.0" y="489.3" font-size="15">Dormitorio</text><text class="m2" x="7.0" y="508.3" font-size="12.8">14 m²</text></g>
+<g class="room r-d"><rect x="0.0" y="596.2" width="121.9" height="111.9"/><text x="7.0" y="617.2" font-size="15">Dormitorio</text><text class="m2" x="7.0" y="636.2" font-size="12.8">12,25 m²</text></g>
+<g class="room r-d"><rect x="0.0" y="708.1" width="121.9" height="111.9"/><text x="7.0" y="729.1" font-size="15">Dormitorio</text><text class="m2" x="7.0" y="748.1" font-size="12.8">12,25 m²</text></g>
+<g class="room r-s"><rect x="121.9" y="468.3" width="99.1" height="121.4"/><text x="128.9" y="489.3" font-size="15">Estudio</text><text class="m2" x="128.9" y="508.3" font-size="12.8">10,8 m²</text></g>
+<g class="room r-h"><rect x="221.0" y="468.3" width="96.4" height="121.4"/><text x="228.0" y="489.3" font-size="15">Galería</text><text class="m2" x="228.0" y="508.3" font-size="12.8">10,5 m²</text></g>
+<g class="room r-s"><rect x="317.4" y="468.3" width="82.6" height="121.4"/><text x="324.4" y="484.1" font-size="9.8">Cocina serv.</text><text class="m2" x="324.4" y="497.9" font-size="8.3">9 m²</text></g>
+<g class="room r-s"><rect x="121.9" y="589.7" width="79.8" height="125.6"/><text x="128.9" y="609.8" font-size="14.1">Depósito</text><text class="m2" x="128.9" y="627.9" font-size="12.0">9 m²</text></g>
+<g class="room r-d"><rect x="121.9" y="715.3" width="79.8" height="104.7"/><text x="128.9" y="735.4" font-size="14.1">Vestidor</text><text class="m2" x="128.9" y="753.5" font-size="12.0">7,5 m²</text></g>
+<g class="room r-d"><rect x="201.7" y="589.7" width="99.1" height="84.3"/><text x="208.7" y="610.7" font-size="15">Vestidor</text><text class="m2" x="208.7" y="629.7" font-size="12.8">7,5 m²</text></g>
+<g class="room r-d"><rect x="300.9" y="589.7" width="99.1" height="84.3"/><text x="307.9" y="610.7" font-size="15">Baño</text><text class="m2" x="307.9" y="629.7" font-size="12.8">7,5 m²</text></g>
+<g class="room r-d"><rect x="201.7" y="674.0" width="114.4" height="73.0"/><text x="208.7" y="695.0" font-size="15">Baño</text><text class="m2" x="208.7" y="714.0" font-size="12.8">7,5 m²</text></g>
+<g class="room r-s"><rect x="201.7" y="747.0" width="114.4" height="73.0"/><text x="208.7" y="768.0" font-size="15">Lavadero</text><text class="m2" x="208.7" y="787.0" font-size="12.8">7,5 m²</text></g>
+<g class="room r-d"><rect x="316.1" y="674.0" width="83.9" height="79.7"/><text x="323.1" y="695.0" font-size="15">Baño</text><text class="m2" x="323.1" y="714.0" font-size="12.8">6 m²</text></g>
+<g class="room r-s"><rect x="316.1" y="753.6" width="50.3" height="66.4"/><text x="323.1" y="774.6" font-size="15">Hall</text><text class="m2" x="323.1" y="793.6" font-size="12.8">3 m²</text></g>
+<g class="room r-s"><rect x="366.4" y="753.6" width="33.6" height="66.4"/><text transform="translate(377.2,761.6) rotate(90)" font-size="11">Toilette</text><text class="m2" transform="translate(391.2,761.6) rotate(90)" font-size="9">2 m²</text></g>
     </svg>
     </div>
     <ul class="legend">
