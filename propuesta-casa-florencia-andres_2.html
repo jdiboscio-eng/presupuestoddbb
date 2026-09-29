@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Casa Florencia y Andrés · Propuesta DDBB Arquitectos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --paper:#F2F2F0; --ink:#000000; --soft:#55565A; --line:#C9C9C6;
+  --green:#4E6A4B; --green-bg:#E6ECE4; --hatch:#8A8B87;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#141414;--paper:#1E1E1E;--ink:#F4F4F2;--soft:#A7A8A4;--line:#3A3A38;--green:#9DBA98;--green-bg:#223021;--hatch:#6F706C;}
+}
+:root[data-theme="dark"]{--bg:#141414;--paper:#1E1E1E;--ink:#F4F4F2;--soft:#A7A8A4;--line:#3A3A38;--green:#9DBA98;--green-bg:#223021;--hatch:#6F706C;}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Jost","Century Gothic","Futura","Avenir Next",system-ui,sans-serif;font-weight:300;font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+.text{max-width:62ch}
+header.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding:32px 0 24px;border-bottom:1px solid var(--ink)}
+.logo{line-height:1.05}
+.logo b{display:block;font-weight:600;letter-spacing:.28em;font-size:1.35rem}
+.logo span{display:block;font-weight:300;letter-spacing:.42em;font-size:1rem}
+.top small{color:var(--soft);font-size:.9rem;text-align:right}
+h1{font-weight:400;font-size:clamp(2.6rem,7vw,5.2rem);line-height:1.02;letter-spacing:-.01em;margin:64px 0 16px}
+h2{font-weight:400;font-size:clamp(1.7rem,3.4vw,2.4rem);line-height:1.15;margin:0 0 20px}
+h3{font-weight:500;font-size:1.15rem;margin:0 0 6px}
+.lead{font-size:clamp(1.1rem,2vw,1.3rem);color:var(--soft);margin:0 0 48px;max-width:46ch}
+section{padding:88px 0;border-top:1px solid var(--line)}
+section.first{border-top:0;padding-top:0}
+
+/* plan diagram */
+figure.plan{margin:0}
+.plan-box{overflow-x:auto;border:2px solid var(--ink)}
+.plan svg{display:block;width:100%;min-width:640px;height:auto}
+.room rect{fill:var(--bg);stroke:var(--ink);stroke-width:1.5}
+.room text{fill:var(--ink);font-family:inherit;font-weight:400}
+.room text.m2{fill:var(--soft);font-weight:300}
+.r-d rect{fill:var(--green-bg)}
+.r-h rect{fill:url(#hatch)}
+.r-c rect{fill:var(--paper)}
+.r-m rect{fill:var(--paper)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 24px;margin:14px 0 0;padding:0;list-style:none;color:var(--soft);font-size:.92rem}
+.legend li{display:flex;align-items:center;gap:8px}
+.sw{width:16px;height:16px;border:1.5px solid var(--ink);display:inline-block}
+.sw.s{background:var(--bg)}.sw.d{background:var(--green-bg)}.sw.c{background:var(--paper)}
+.sw.h{background:repeating-linear-gradient(45deg,var(--bg) 0 3px,var(--hatch) 3px 4px)}
+figcaption{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:6px}
+.bigm2{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:400;line-height:1}
+.bigm2 small{font-size:1rem;color:var(--soft);font-weight:300;display:block;margin-top:6px}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+@media (max-width:760px){.cols{grid-template-columns:1fr;gap:28px}}
+
+details{margin-top:40px}
+summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 24px;border:2px solid var(--ink);background:var(--paper);transition:background .15s}
+summary:hover{background:var(--green-bg)}
+summary::-webkit-details-marker{display:none}
+.sum-txt b{display:block;font-weight:500;font-size:1.1rem}
+.sum-txt span{color:var(--soft);font-size:.95rem}
+.sum-btn{flex:none;display:flex;align-items:center;gap:10px;font-weight:500;background:var(--ink);color:var(--bg);padding:10px 18px}
+.sum-btn i{font-style:normal;font-size:1.3rem;line-height:1;transition:transform .2s}
+.sum-btn .c{display:none}
+details[open] .sum-btn .o{display:none}
+details[open] .sum-btn .c{display:inline}
+details[open] .sum-btn i{transform:rotate(45deg)}
+details[open] summary{border-bottom-width:1px}
+details .tbl{border:2px solid var(--ink);border-top:0;padding:8px 20px 20px}
+@media (max-width:560px){summary{flex-direction:column;align-items:flex-start}}
+@media (prefers-reduced-motion:reduce){.sum-btn i,summary{transition:none}}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:480px;font-size:.95rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.grp td{font-weight:500;padding-top:22px;border-bottom:1px solid var(--ink)}
+tr.tot td{font-weight:500;border-top:2px solid var(--ink);border-bottom:0;padding-top:14px}
+
+.people{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:32px}
+.person{border-left:2px solid var(--green);padding-left:18px}
+.person p{margin:0;color:var(--soft)}
+
+.works{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:40px;border-top:2px solid var(--ink)}
+@media (max-width:860px){.works{grid-template-columns:1fr}}
+.work{padding:28px 28px 32px 0;border-bottom:1px solid var(--line)}
+@media (min-width:861px){.work+.work{padding-left:28px;border-left:1px solid var(--line)}}
+.work .area{font-size:2.4rem;font-weight:400;line-height:1;margin-bottom:14px}
+.work .area small{font-size:1rem;color:var(--soft)}
+.work .tag{display:inline-block;background:var(--green-bg);color:var(--green);font-size:.85rem;font-weight:500;padding:2px 10px;margin-bottom:12px}
+.work p{margin:0 0 14px;color:var(--soft);font-size:.98rem}
+.work a{font-weight:500;text-underline-offset:4px}
+
+ol.steps{list-style:none;padding:0;margin:40px 0 0;counter-reset:s}
+ol.steps>li{display:grid;grid-template-columns:72px 1fr 180px;gap:24px;padding:28px 0;border-top:1px solid var(--line);counter-increment:s}
+ol.steps>li::before{content:counter(s);font-size:3rem;font-weight:300;line-height:1}
+.steps ul{margin:8px 0 0;padding-left:18px;color:var(--soft)}
+.steps .pay{text-align:right}
+.steps .pay b{display:block;font-size:1.8rem;font-weight:400;line-height:1.1}
+.steps .pay span{color:var(--soft);font-size:.9rem}
+@media (max-width:700px){ol.steps>li{grid-template-columns:48px 1fr}.steps .pay{grid-column:2;text-align:left}}
+
+.invest{background:var(--paper);padding:clamp(24px,5vw,56px);margin-top:36px}
+.total{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:400;line-height:1;margin:6px 0 4px;font-variant-numeric:tabular-nums}
+.muted{color:var(--soft)}
+.slider{margin:32px 0 8px}
+.slider label{display:flex;justify-content:space-between;font-weight:500;margin-bottom:10px}
+.range-row{display:flex;align-items:center;gap:12px}
+.step{flex:none;width:44px;height:44px;border:2px solid var(--ink);background:var(--bg);color:var(--ink);font:inherit;font-size:1.4rem;line-height:1;cursor:pointer;touch-action:manipulation}
+.step:active{background:var(--green-bg)}
+.track{position:relative;flex:1;height:44px;cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none}
+.track::before{content:"";position:absolute;left:0;right:0;top:50%;height:6px;margin-top:-3px;background:var(--bg);border:1px solid var(--line);border-radius:3px}
+.fill{position:absolute;left:0;top:50%;height:6px;margin-top:-3px;background:var(--green);border-radius:3px}
+.thumb{position:absolute;top:50%;width:28px;height:28px;margin:-14px 0 0 -14px;border-radius:50%;background:var(--green);border:3px solid var(--bg);box-shadow:0 0 0 1px var(--green)}
+.track:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+.split{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:32px;border-top:2px solid var(--ink)}
+.split div{padding:18px 16px 0 0}
+.split div+div{padding-left:16px;border-left:1px solid var(--line)}
+.split b{display:block;font-size:1.35rem;font-weight:400;font-variant-numeric:tabular-nums}
+.split span{color:var(--soft);font-size:.92rem}
+@media (max-width:620px){.split{grid-template-columns:1fr}.split div+div{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
+.notes{margin:32px 0 0;padding-left:18px;color:var(--soft);font-size:.95rem}
+
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.btn{display:inline-block;padding:14px 26px;font-weight:500;text-decoration:none;border:2px solid var(--ink)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+footer{border-top:1px solid var(--ink);padding:28px 0 48px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;color:var(--soft);font-size:.9rem}
+@media print{section{padding:40px 0;break-inside:avoid}.cta,.slider{display:none}}
+
+.mm{display:none}
+@media (max-width:600px){
+  table{min-width:0;font-size:.95rem}
+  .med{display:none}
+  .mm{display:block;color:var(--soft);font-size:.85rem;margin-top:2px}
+  th,td{padding:10px 6px}
+  td.n{white-space:nowrap;vertical-align:top}
+  details .tbl{padding:4px 12px 16px;overflow-x:visible}
+  summary{padding:18px 16px}
+  tr.tot td{white-space:normal}
+}
+summary:focus-visible{outline-offset:-6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="logo" aria-label="DDBB Arquitectos"><b>DDBB</b><span>ARQUITECTOS</span></div>
+  <small>Neuquén, 19 de septiembre de 2026</small>
+</header>
+
+<section class="first">
+  <h1>Casa Florencia<br>y Andrés</h1>
+  <p class="lead">Propuesta de proyecto para su vivienda en el barrio Canales de Plottier.</p>
+  <figure class="plan">
+    <div class="plan-box">
+    <svg viewBox="0 0 1200 520" role="img" aria-labelledby="plan-t">
+      <title id="plan-t">Diagrama con la superficie de cada ambiente de la casa, en proporción a sus metros cuadrados</title>
+      <defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="var(--bg)"/><line x1="0" y1="0" x2="0" y2="8" stroke="var(--hatch)" stroke-width="1.5"/></pattern></defs>
+      <g class="room r-s"><rect x="0.0" y="0.0" width="270.4" height="282.1"/>
+<text x="10.0" y="22.0" font-size="15">Estar comedor</text><text class="m2" x="10.0" y="41.0" font-size="13">36 m²</text>
+</g>
+<g class="room r-c"><rect x="0.0" y="282.1" width="270.4" height="237.9"/>
+<text x="10.0" y="304.1" font-size="15">Circulaciones</text><text class="m2" x="10.0" y="323.1" font-size="13">30,35 m²</text>
+</g>
+<g class="room r-m"><rect x="270.4" y="0.0" width="215.3" height="298.6"/>
+<text x="280.4" y="22.0" font-size="15">Muros</text><text class="m2" x="280.4" y="41.0" font-size="13">30,35 m²</text>
+</g>
+<g class="room r-s"><rect x="270.4" y="298.6" width="215.3" height="221.4"/>
+<text x="280.4" y="320.6" font-size="15">Cocina</text><text class="m2" x="280.4" y="339.6" font-size="13">22,5 m²</text>
+</g>
+<g class="room r-h"><rect x="485.7" y="0.0" width="199.7" height="222.9"/>
+<text x="495.7" y="22.0" font-size="15">Cochera 2 autos</text><text class="m2" x="495.7" y="41.0" font-size="13">21 m²</text>
+</g>
+<g class="room r-d"><rect x="485.7" y="222.9" width="199.7" height="148.6"/>
+<text x="495.7" y="244.9" font-size="15">Dormitorio ppal.</text><text class="m2" x="495.7" y="263.9" font-size="13">14 m²</text>
+</g>
+<g class="room r-c"><rect x="485.7" y="371.4" width="199.7" height="148.6"/>
+<text x="495.7" y="393.4" font-size="15">Escalera</text><text class="m2" x="495.7" y="412.4" font-size="13">14 m²</text>
+</g>
+<g class="room r-d"><rect x="685.4" y="0.0" width="187.1" height="158.5"/>
+<text x="695.4" y="22.0" font-size="15">Dormitorio</text><text class="m2" x="695.4" y="41.0" font-size="13">14 m²</text>
+</g>
+<g class="room r-d"><rect x="872.5" y="0.0" width="163.7" height="158.5"/>
+<text x="882.5" y="22.0" font-size="15">Dormitorio</text><text class="m2" x="882.5" y="41.0" font-size="13">12,25 m²</text>
+</g>
+<g class="room r-d"><rect x="1036.3" y="0.0" width="163.7" height="158.5"/>
+<text x="1046.3" y="22.0" font-size="15">Dormitorio</text><text class="m2" x="1046.3" y="41.0" font-size="13">12,25 m²</text>
+</g>
+<g class="room r-s"><rect x="685.4" y="158.5" width="124.8" height="183.3"/>
+<text x="695.4" y="180.5" font-size="12">Estudio</text><text class="m2" x="695.4" y="196.5" font-size="10">10,8 m²</text>
+</g>
+<g class="room r-h"><rect x="685.4" y="341.8" width="124.8" height="178.2"/>
+<text x="695.4" y="363.8" font-size="12">Galería</text><text class="m2" x="695.4" y="379.8" font-size="10">10,5 m²</text>
+</g>
+<g class="room r-s"><rect x="810.2" y="158.5" width="149.5" height="127.6"/>
+<text x="820.2" y="180.5" font-size="12">Cocina servicio</text><text class="m2" x="820.2" y="196.5" font-size="10">9 m²</text>
+</g>
+<g class="room r-s"><rect x="810.2" y="286.1" width="149.5" height="127.6"/>
+<text x="820.2" y="308.1" font-size="12">Depósito</text><text class="m2" x="820.2" y="324.1" font-size="10">9 m²</text>
+</g>
+<g class="room r-d"><rect x="810.2" y="413.7" width="149.5" height="106.3"/>
+<text x="820.2" y="435.7" font-size="12">Vestidor</text><text class="m2" x="820.2" y="451.7" font-size="10">7,5 m²</text>
+</g>
+<g class="room r-d"><rect x="959.7" y="158.5" width="120.2" height="132.3"/>
+<text x="969.7" y="180.5" font-size="12">Vestidor</text><text class="m2" x="969.7" y="196.5" font-size="10">7,5 m²</text>
+</g>
+<g class="room r-d"><rect x="1079.8" y="158.5" width="120.2" height="132.3"/>
+<text x="1089.8" y="180.5" font-size="12">Baño</text><text class="m2" x="1089.8" y="196.5" font-size="10">7,5 m²</text>
+</g>
+<g class="room r-d"><rect x="959.7" y="290.8" width="138.6" height="114.6"/>
+<text x="969.7" y="312.8" font-size="12">Baño</text><text class="m2" x="969.7" y="328.8" font-size="10">7,5 m²</text>
+</g>
+<g class="room r-s"><rect x="959.7" y="405.4" width="138.6" height="114.6"/>
+<text x="969.7" y="427.4" font-size="12">Lavadero</text><text class="m2" x="969.7" y="443.4" font-size="10">7,5 m²</text>
+</g>
+<g class="room r-d"><rect x="1098.3" y="290.8" width="101.7" height="125.0"/>
+<text x="1108.3" y="312.8" font-size="12">Baño</text><text class="m2" x="1108.3" y="328.8" font-size="10">6 m²</text>
+</g>
+<g class="room r-s"><rect x="1098.3" y="415.8" width="101.7" height="62.5"/>
+<text x="1108.3" y="437.8" font-size="12">Hall</text><text class="m2" x="1108.3" y="453.8" font-size="10">3 m²</text>
+</g>
+<g class="room r-s"><rect x="1098.3" y="478.3" width="101.7" height="41.7"/>
+<text x="1108.3" y="500.3" font-size="12">Toilette</text><text class="m2" x="1108.3" y="516.3" font-size="10">2 m²</text>
+</g>
+    </svg>
+    </div>
+    <ul class="legend">
+      <li><i class="sw s"></i>Área social y servicio</li>
+      <li><i class="sw d"></i>Dormitorios</li>
+      <li><i class="sw h"></i>Semicubiertos (al 50%)</li>
+      <li><i class="sw c"></i>Circulación y muros</li>
+    </ul>
+    <figcaption>
+      <div class="bigm2">294,49 m²<small>superficie estimada de su casa, ambiente por ambiente</small></div>
+    </figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="cols">
+    <div class="text">
+      <h2>Lo que entendimos de su casa</h2>
+      <p>Gracias por la reunión y por abrirnos su idea. Con lo que conversamos armamos un primer programa: una casa de dos niveles con un estar comedor en doble altura como corazón de la vivienda, una cocina amplia con su cocina de servicio y despensa, y un estudio para trabajar en casa.</p>
+      <p>Para descansar, un dormitorio principal con vestidor y baño, dos dormitorios más con baño, y un cuarto dormitorio en suite junto a las áreas de uso diario. Afuera, cochera para dos autos y una galería para disfrutar el exterior.</p>
+    </div>
+    <div class="text">
+      <h2>Qué les proponemos</h2>
+      <p>Acompañarlos desde la primera idea hasta tener todo listo para construir: diseñar la casa con ustedes, aprobarla en la Municipalidad de Plottier y desarrollar toda la documentación técnica para que la obra se ejecute sin sorpresas.</p>
+      <p class="muted">Este programa es un punto de partida. En el anteproyecto lo vamos a ajustar juntos hasta que la casa sea exactamente la que quieren.</p>
+    </div>
+  </div>
+  <details>
+    <summary><span class="sum-txt"><b>Programa de necesidades completo</b><span>Las medidas y la superficie de cada uno de los 22 ambientes</span></span><span class="sum-btn"><span class="o">Ver el detalle</span><span class="c">Cerrar</span><i aria-hidden="true">+</i></span></summary>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>Ambiente</th><th class="n med">Medidas (m)</th><th class="n">Superficie</th></tr></thead>
+      <tbody>
+      <tr class="grp"><td colspan="3">Estar, comedor y servicios</td></tr>
+      <tr><td>Hall de acceso<small class="mm">1,50 × 2,00 m</small></td><td class="n med">1,50 × 2,00</td><td class="n">3,00 m²</td></tr>
+      <tr><td>Estar comedor (doble altura)<small class="mm">4,50 × 8,00 m</small></td><td class="n med">4,50 × 8,00</td><td class="n">36,00 m²</td></tr>
+      <tr><td>Cocina<small class="mm">4,50 × 5,00 m</small></td><td class="n med">4,50 × 5,00</td><td class="n">22,50 m²</td></tr>
+      <tr><td>Cocina de servicio y despensa<small class="mm">3,00 × 3,00 m</small></td><td class="n med">3,00 × 3,00</td><td class="n">9,00 m²</td></tr>
+      <tr><td>Lavadero<small class="mm">2,50 × 3,00 m</small></td><td class="n med">2,50 × 3,00</td><td class="n">7,50 m²</td></tr>
+      <tr><td>Dormitorio<small class="mm">3,50 × 4,00 m</small></td><td class="n med">3,50 × 4,00</td><td class="n">14,00 m²</td></tr>
+      <tr><td>Vestidor<small class="mm">2,50 × 3,00 m</small></td><td class="n med">2,50 × 3,00</td><td class="n">7,50 m²</td></tr>
+      <tr><td>Baño<small class="mm">2,50 × 3,00 m</small></td><td class="n med">2,50 × 3,00</td><td class="n">7,50 m²</td></tr>
+      <tr><td>Estudio<small class="mm">3,00 × 3,60 m</small></td><td class="n med">3,00 × 3,60</td><td class="n">10,80 m²</td></tr>
+      <tr><td>Toilette<small class="mm">1,00 × 2,00 m</small></td><td class="n med">1,00 × 2,00</td><td class="n">2,00 m²</td></tr>
+      <tr><td>Depósito<small class="mm">3,00 × 3,00 m</small></td><td class="n med">3,00 × 3,00</td><td class="n">9,00 m²</td></tr>
+      <tr class="grp"><td colspan="3">Dormitorios</td></tr>
+      <tr><td>Dormitorio principal<small class="mm">3,50 × 4,00 m</small></td><td class="n med">3,50 × 4,00</td><td class="n">14,00 m²</td></tr>
+      <tr><td>Vestidor<small class="mm">2,50 × 3,00 m</small></td><td class="n med">2,50 × 3,00</td><td class="n">7,50 m²</td></tr>
+      <tr><td>Baño<small class="mm">2,50 × 3,00 m</small></td><td class="n med">2,50 × 3,00</td><td class="n">7,50 m²</td></tr>
+      <tr><td>Dormitorio<small class="mm">3,50 × 3,50 m</small></td><td class="n med">3,50 × 3,50</td><td class="n">12,25 m²</td></tr>
+      <tr><td>Dormitorio<small class="mm">3,50 × 3,50 m</small></td><td class="n med">3,50 × 3,50</td><td class="n">12,25 m²</td></tr>
+      <tr><td>Baño<small class="mm">2,00 × 3,00 m</small></td><td class="n med">2,00 × 3,00</td><td class="n">6,00 m²</td></tr>
+      <tr><td>Escalera</td><td class="n med"></td><td class="n">14,00 m²</td></tr>
+      <tr class="tot"><td colspan="2">Superficies netas</td><td class="n">202,30 m²</td></tr>
+      <tr class="grp"><td colspan="3">Semicubiertos</td></tr>
+      <tr><td>Cochera para 2 autos<small class="mm">6,00 × 7,00 m</small></td><td class="n med">6,00 × 7,00</td><td class="n">42,00 m²</td></tr>
+      <tr><td>Galería<small class="mm">3,50 × 6,00 m</small></td><td class="n med">3,50 × 6,00</td><td class="n">21,00 m²</td></tr>
+      <tr class="tot"><td colspan="2">Semicubiertos computados al 50%</td><td class="n">31,50 m²</td></tr>
+      <tr class="grp"><td colspan="3">Circulación y muros</td></tr>
+      <tr><td>Circulaciones<small class="mm">15% del total</small></td><td class="n med">15%</td><td class="n">30,35 m²</td></tr>
+      <tr><td>Muros<small class="mm">15% del total</small></td><td class="n med">15%</td><td class="n">30,35 m²</td></tr>
+      <tr class="tot"><td colspan="2">Superficie total estimada</td><td class="n">294,49 m²</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </details>
+</section>
+
+<section>
+  <div class="text">
+    <h2>Quiénes somos</h2>
+    <p>DDBB es un estudio familiar de Neuquén. Somos padre e hija, arquitectos, y llevamos más de 30 años proyectando y construyendo casas en la región. Venimos de tres generaciones de arquitectos, y trabajamos así: con atención personalizada, resolviendo cada decisión en conjunto con quienes van a vivir la casa.</p>
+  </div>
+  <div class="people">
+    <div class="person"><h3>Arq. Fernando Di Boscio</h3><p>Arquitecto, fundador del estudio.</p></div>
+    <div class="person"><h3>Arq. Victoria Di Boscio</h3><p>Arquitecta, socia del estudio.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="text">
+    <h2>Casas que ya hicimos</h2>
+    <p class="muted">Tres viviendas del estudio que comparten escala, programa o desafíos con la suya.</p>
+  </div>
+  <div class="works">
+    <article class="work">
+      <span class="tag">Barrio privado</span>
+      <h3>Casa ANZ</h3>
+      <div class="area">310 <small>m²</small></div>
+      <p>Una casa de dos plantas en un barrio privado de Neuquén. Se cierra hacia el oeste para protegerse del viento patagónico y se abre al este con ventanales de piso a techo y un balcón que une los dormitorios.</p>
+      <a href="https://arqa.com/arquitectura/casa-anz.html" target="_blank" rel="noopener">Ver fotos y planos</a>
+    </article>
+    <article class="work">
+      <span class="tag">Casa con jardín</span>
+      <h3>Casa PM</h3>
+      <div class="area">Esquina</div>
+      <p>En un terreno de esquina, la casa se vuelca hacia un patio lateral privado. Estar, cocina y dormitorio principal con vestidor se abren directamente al jardín.</p>
+      <a href="https://www.facebook.com/ddbbarquitectos/" target="_blank" rel="noopener">Ver en nuestras redes</a>
+    </article>
+    <article class="work">
+      <span class="tag">Programa exigente</span>
+      <h3>Casa BI</h3>
+      <div class="area">252 <small>m²</small></div>
+      <p>Una familia, dos dormitorios con vestidor y baño, cochera para dos autos que funciona también como quincho, todo en un lote de 7 × 13 m. Ventilación cruzada y protección del viento oeste.</p>
+      <a href="https://arqa.com/arquitectura/casa-bi.html" target="_blank" rel="noopener">Ver fotos y planos</a>
+    </article>
+  </div>
+</section>
+
+<section>
+  <div class="text">
+    <h2>Cómo vamos a trabajar</h2>
+    <p class="muted">Tres etapas. En cada una saben qué van a recibir y cuándo se paga.</p>
+  </div>
+  <ol class="steps">
+    <li>
+      <div><h3>Anteproyecto</h3><p class="muted">Diseñamos la casa con ustedes y la ajustamos hasta que les guste.</p>
+        <ul><li>Plantas</li><li>Cortes</li><li>Fachada</li><li>Imágenes 3D de la propuesta</li></ul></div>
+      <div class="pay"><b>40%</b><span>al confirmar, para empezar</span></div>
+    </li>
+    <li>
+      <div><h3>Plano municipal</h3><p class="muted">Armamos la carpeta para la Municipalidad de Plottier, hacemos el trámite y seguimos la aprobación.</p>
+        <ul><li>Planos para permiso de obra</li><li>Legajo técnico y cálculo estructural</li><li>Gestión y aprobación</li></ul></div>
+      <div class="pay"><b>50%</b><span>al completar el plano municipal</span></div>
+    </li>
+    <li>
+      <div><h3>Proyecto ejecutivo</h3><p class="muted">Toda la documentación que define cómo se construye la casa, para que la obra avance con precisión.</p>
+        <ul><li>Plantas, cortes y vistas de detalle</li><li>Detalles constructivos</li><li>Estructura: cálculo y detalles de armadura</li><li>Instalación eléctrica: bocas, conductores y protecciones</li><li>Instalación sanitaria: agua fría y caliente, ventilaciones y desagües pluviales</li><li>Instalación de gas: cañerías y ventilaciones</li><li>Carpinterías: todas las aberturas</li><li>Acondicionamiento: aire acondicionado y calefacción</li></ul></div>
+      <div class="pay"><b>10%</b><span>a la entrega de los planos</span></div>
+    </li>
+  </ol>
+</section>
+
+<section>
+  <div class="text">
+    <h2>Inversión</h2>
+    <p>Los honorarios son de <strong>$62.000 por metro cuadrado</strong>, sobre la superficie que finalmente apruebe la municipalidad. Con el programa actual, la inversión estimada es:</p>
+  </div>
+  <div class="invest">
+    <span class="muted">Total estimado de honorarios</span>
+    <div class="total" id="total">$18.258.380</div>
+    <span class="muted" id="m2label">para 294,49 m²</span>
+    <div class="slider">
+      <label id="m2lab"><span>Si la casa cambia de tamaño</span><span id="m2val">294 m²</span></label>
+      <div class="range-row">
+        <button type="button" class="step" id="minus" aria-label="Restar 5 m²">−</button>
+        <div class="track" id="track" role="slider" tabindex="0" aria-labelledby="m2lab" aria-valuemin="220" aria-valuemax="360" aria-valuenow="294">
+          <div class="fill" id="fill"></div><div class="thumb" id="thumb"></div>
+        </div>
+        <button type="button" class="step" id="plus" aria-label="Sumar 5 m²">+</button>
+      </div>
+    </div>
+    <div class="split">
+      <div><span>Anticipo 40%</span><b id="p1">$7.303.352</b></div>
+      <div><span>Plano municipal 50%</span><b id="p2">$9.129.190</b></div>
+      <div><span>Entrega final 10%</span><b id="p3">$1.825.838</b></div>
+    </div>
+    <ul class="notes">
+      <li>La superficie definitiva se toma de la aprobada por la Municipalidad de Plottier.</li>
+      <li>No incluye derechos de tramitación municipal ni amojonamiento.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="text">
+    <h2>Para empezar</h2>
+    <p>Si la propuesta les cierra, confirmamos por mensaje, coordinamos el anticipo y agendamos la primera reunión de anteproyecto. Si quieren revisar algo antes, estamos para conversarlo.</p>
+  </div>
+  <div class="cta">
+    <a class="btn primary" href="https://wa.me/5492996335431?text=Hola%2C%20somos%20Florencia%20y%20Andr%C3%A9s%2C%20vimos%20la%20propuesta" target="_blank" rel="noopener">Escribirnos por WhatsApp</a>
+    <a class="btn" href="mailto:ddbbarquitectos@gmail.com?subject=Propuesta%20Casa%20Florencia%20y%20Andr%C3%A9s">Enviar un mail</a>
+  </div>
+</section>
+
+<footer>
+  <span>Río Pilcomayo 808, Neuquén. 299 15 633 5431</span>
+  <span>ddbbarquitectos.com / Instagram @ddbbarquitectos</span>
+</footer>
+</div>
+<script>
+(function(){
+  var MIN=220,MAX=360,RATE=62000,m=294.49;
+  var track=document.getElementById('track'),fill=document.getElementById('fill'),thumb=document.getElementById('thumb');
+  var f=function(n){return '$'+Math.round(n).toLocaleString('es-AR')};
+  function set(v){
+    m=Math.min(MAX,Math.max(MIN,v));
+    var pct=(m-MIN)/(MAX-MIN)*100,t=m*RATE;
+    fill.style.width=pct+'%'; thumb.style.left=pct+'%';
+    track.setAttribute('aria-valuenow',Math.round(m));
+    document.getElementById('total').textContent=f(t);
+    document.getElementById('m2val').textContent=Math.round(m)+' m²';
+    document.getElementById('m2label').textContent='para '+m.toLocaleString('es-AR',{maximumFractionDigits:2})+' m²';
+    document.getElementById('p1').textContent=f(t*.4);
+    document.getElementById('p2').textContent=f(t*.5);
+    document.getElementById('p3').textContent=f(t*.1);
+  }
+  function fromX(x){var r=track.getBoundingClientRect();set(Math.round(MIN+(x-r.left)/r.width*(MAX-MIN)));}
+  var drag=false;
+  track.addEventListener('pointerdown',function(e){drag=true;try{track.setPointerCapture(e.pointerId)}catch(_){}fromX(e.clientX);e.preventDefault();});
+  track.addEventListener('pointermove',function(e){if(drag){fromX(e.clientX);e.preventDefault();}});
+  ['pointerup','pointercancel'].forEach(function(n){track.addEventListener(n,function(){drag=false;});});
+  /* respaldo táctil para navegadores o visores que no entregan pointer events */
+  track.addEventListener('touchstart',function(e){fromX(e.touches[0].clientX);e.preventDefault();},{passive:false});
+  track.addEventListener('touchmove',function(e){fromX(e.touches[0].clientX);e.preventDefault();},{passive:false});
+  track.addEventListener('keydown',function(e){
+    var k=e.key;if(k==='ArrowRight'||k==='ArrowUp'){set(Math.round(m)+1);e.preventDefault();}
+    else if(k==='ArrowLeft'||k==='ArrowDown'){set(Math.round(m)-1);e.preventDefault();}
+    else if(k==='Home'){set(MIN);e.preventDefault();}else if(k==='End'){set(MAX);e.preventDefault();}
+  });
+  document.getElementById('minus').addEventListener('click',function(){set(Math.round(m)-5);});
+  document.getElementById('plus').addEventListener('click',function(){set(Math.round(m)+5);});
+  set(m);
+})();
+</script>
+</body>
+</html>
